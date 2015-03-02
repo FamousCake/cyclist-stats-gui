@@ -2,11 +2,32 @@
 <html>
   <head>
     <title>Hello World!</title>
+    <script type="text/javascript" src="main.js"></script>
   </head>
   <body>
     <h1 id="main"></h1>
 
-    <script type="text/javascript" src="main.js"></script>
+    <a href="#" onclick="chooseFile('#fileDialog')">Choose File</a>
+
+    <input style="display:none;" id="fileDialog" type="file" />
+
+
+
+    <script type="text/javascript">
+
+          function chooseFile(name) {
+            var chooser = document.querySelector(name);
+            chooser.addEventListener("change", function(evt) {
+              console.log(this.value);
+              module(this.value);
+            }, false);
+
+            chooser.click();
+          }
+
+
+
+    </script>
 
   </body>
 </html>

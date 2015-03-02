@@ -11,9 +11,16 @@ void CreateObject(const FunctionCallbackInfo<Value>& args) {
 
   Local<Object> obj = Object::New(isolate);
 
-  Handle<Value> a;
+  // get the param
+  v8::String::Utf8Value param1(args[0]->ToString());
 
-  std::vector<DataPoint> v(io::readData("./data.hrm"));
+  // convert it to string
+  std::string filepath = std::string(*param1);
+
+  //printf("%s\n", filepath);
+  std::cout << filepath;
+
+  std::vector<DataPoint> v(io::readData(filepath.c_str()));//"./data.hrm"));
 
   DataPoint avg(0,0,0,0,0,0);
 

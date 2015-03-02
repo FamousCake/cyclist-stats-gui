@@ -27,7 +27,7 @@ void CreateObject(const FunctionCallbackInfo<Value>& args) {
       avg.PowerBalance += node.PowerBalance;
   }
 
-  obj->Set(String::NewFromUtf8(isolate, "name"), args[0]->ToString());
+  //obj->Set(String::NewFromUtf8(isolate, "name"), args[0]->ToString());
   obj->Set(String::NewFromUtf8(isolate, "HeartRate"), Integer::New(isolate, avg.HeartRate));
   obj->Set(String::NewFromUtf8(isolate, "Speed"), Integer::New(isolate, avg.Speed));
   obj->Set(String::NewFromUtf8(isolate, "Cadance"), Integer::New(isolate, avg.Cadance));

@@ -1,20 +1,20 @@
-#ifndef DATA_H
-#define DATA_H
+#ifndef DATA_POINT_H
+#define DATA_POINT_H
 
-class Data
+class DataPoint
 {
   public:
-    Data(int a, int b, int c, int d, int e, int f)
+    DataPoint(int a, int b, int c, int d, int e, int f)
         : HeartRate(a), Speed(b), Cadance(c), Altitude(d), Power(e),
           PowerBalance(f)
     {
     }
-    Data(int a[6])
+    DataPoint(int a[6])
         : HeartRate(a[0]), Speed(a[1]), Cadance(a[2]), Altitude(a[3]),
           Power(a[4]), PowerBalance(a[5])
     {
     }
-    ~Data();
+    ~DataPoint();
 
     int HeartRate; // Beats per minute BPM
     int Speed; // 0.1 km/h (or mph)
@@ -24,4 +24,4 @@ class Data
     int PowerBalance;
 };
 
-#endif // DATA_H
+#endif // DATA_POINT_H

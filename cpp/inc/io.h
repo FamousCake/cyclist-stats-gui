@@ -6,11 +6,11 @@
 #include <fstream>
 #include <iomanip>
 
-#include "data.h"
+#include "data_point.h"
 
 namespace io
 {
-std::vector<Data> readData(const char *);
+std::vector<DataPoint> readData(const char *);
 }
 
 #endif // IO_H

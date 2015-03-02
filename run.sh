@@ -1,0 +1,1 @@
+./node_modules/nw-gyp/bin/nw-gyp.js configure --target=0.12.0-alpha2 --python /usr/bin/python2 && ./node_modules/nw-gyp/bin/nw-gyp.js build --target=0.12.0-alpha2 --python /usr/bin/python2 && ./node_modules/nw/bin/nw .

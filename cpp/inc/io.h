@@ -10,7 +10,14 @@
 
 namespace io
 {
-std::vector<DataPoint> readData(const char *);
+
+/**
+ * @brief Read just the body data from a stats file
+ *
+ * @param r filename
+ * @return void
+ */
+std::vector<DataPoint> readData(const char[]);
 }
 
 #endif // IO_H

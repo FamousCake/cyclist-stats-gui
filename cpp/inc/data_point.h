@@ -5,13 +5,12 @@ class DataPoint
 {
   public:
     DataPoint(int a, int b, int c, int d, int e, int f)
-        : HeartRate(a), Speed(b), Cadance(c), Altitude(d), Power(e),
-          PowerBalance(f)
+        : HeartRate(a), Speed(b), Cadance(c), Altitude(d), Power(e)
     {
     }
     DataPoint(int a[6])
         : HeartRate(a[0]), Speed(a[1]), Cadance(a[2]), Altitude(a[3]),
-          Power(a[4]), PowerBalance(a[5])
+          Power(a[4])
     {
     }
     ~DataPoint();
@@ -21,7 +20,6 @@ class DataPoint
     int Cadance; // RPM
     int Altitude; // m/ft
     int Power; // Wats
-    int PowerBalance;
 };
 
 #endif // DATA_POINT_H

@@ -1,6 +1,6 @@
 #include "inc/io.h"
 
-std::vector<DataPoint> io::readData(const char *filename)
+std::vector<DataPoint> io::readData(const char filename[])
 {
     FILE *f = fopen(filename,"r");
 

@@ -11,13 +11,20 @@
 namespace io
 {
 
-/**
- * @brief Read just the body data from a stats file
- *
- * @param r filename
- * @return void
- */
-std::vector<DataPoint> readData(const char[]);
+
+void readHeader(std::ifstream &myfile);
+
+std::vector<DataPoint> readData(std::ifstream &myfile);
+
+
+
+// std::vector<DataPoint> readHeaderData(const char[]);
+
+void advanceUntill(std::ifstream &myfile, const char[]);
+
+std::vector<DataPoint> readInputFile(const char[]);
+
+
 }
 
 #endif // IO_H

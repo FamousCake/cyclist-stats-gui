@@ -15,7 +15,16 @@ var module = function(filepath) {
 
     text += '<div> Average altitude is : ' + (gosho.Altitude / gosho.Count).toFixed(2) + ' feet </div>';
     text += '<div> Average power is : ' + (gosho.Power / gosho.Count).toFixed(2) + ' W </div>';
-    text += '<div> Average power balance is : ' + (gosho.PowerBalance / gosho.Count).toFixed(2) + '</div>';
+    text += '<div> Average power balance is : ' + (gosho.PowerBalance / gosho.Count ).toFixed(2) + '</div>';
+
+    text += '<div> Array : ';
+
+    _.each(gosho.TestArray, function(item){
+        text += item + ', ';
+
+    });
+
+    text += '</div>';
 
 
     document.getElementById('main').innerHTML += text;

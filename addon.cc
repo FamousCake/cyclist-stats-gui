@@ -20,7 +20,9 @@ void CreateObject(const FunctionCallbackInfo<Value>& args) {
     //printf("%s\n", filepath);
     std::cout << filepath;
 
-    std::vector<DataPoint> v(io::readData(filepath.c_str()));//"./data.hrm"));
+    std::vector<DataPoint> v(io::readInputFile(filepath.c_str()));
+
+    //"./data.hrm"));
 
     DataPoint avg(0,0,0,0,0,0);
 

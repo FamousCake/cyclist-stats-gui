@@ -9,8 +9,9 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
+    string filepath = ("./input/full/test-1937.hrm");
 
-    std::vector<DataPoint> v(io::readInputFile("./input/full/test-1937.hrm"));
+    std::vector<DataPoint> v(io::readInputFile(filepath.c_str()));
 
     for(auto x : v)
     {

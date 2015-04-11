@@ -39,7 +39,7 @@ void io::readHeader(std::ifstream &myfile)
     }
 }
 
-std::vector<DataPoint> io::readInputFile(const char filename[])
+std::vector<DataPoint> io::readInputFile(const char *filename)
 {
     string line;
     ifstream myfile (filename);
@@ -66,7 +66,7 @@ std::vector<DataPoint> io::readInputFile(const char filename[])
     return v;
 }
 
-void io::advanceUntill(ifstream &myfile, const char token[]){
+void io::advanceUntill(ifstream &myfile, const char *token){
 
     string line;
 

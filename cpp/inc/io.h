@@ -16,13 +16,11 @@ void readHeader(std::ifstream &myfile);
 
 std::vector<DataPoint> readData(std::ifstream &myfile);
 
-
-
 // std::vector<DataPoint> readHeaderData(const char[]);
 
-void advanceUntill(std::ifstream &myfile, const char[]);
+void advanceUntill(std::ifstream &myfile, const char*);
 
-std::vector<DataPoint> readInputFile(const char[]);
+std::vector<DataPoint> readInputFile(const char*);
 
 
 }

@@ -1,0 +1,1 @@
+clear && make all && ./bin/run.out

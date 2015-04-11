@@ -2,6 +2,7 @@
 
 #include "./cpp/inc/io.h"
 #include "./cpp/inc/data_point.h"
+#include "./cpp/inc/cyclist_data.h"
 
 using namespace v8;
 
@@ -20,13 +21,15 @@ void CreateObject(const FunctionCallbackInfo<Value>& args) {
     //printf("%s\n", filepath);
     std::cout << filepath;
 
-    std::vector<DataPoint> v(io::readInputFile(filepath.c_str()));
+    //std::vector<DataPoint> v(io::readInputFile(filepath.c_str()));
+
+    CyclistData v = io::readInputFile(filepath.c_str());
 
     //"./data.hrm"));
 
     DataPoint avg(0,0,0,0,0,0);
 
-    for(auto node : v)
+    for(auto node : v.HRData)
     {
         avg.HeartRate += node.HeartRate;
         avg.Speed += node.Speed;
@@ -38,6 +41,25 @@ void CreateObject(const FunctionCallbackInfo<Value>& args) {
 
     // Create a new empty array.
     Handle<Array> array = Array::New(isolate, 3);
+
+    Handle<Array> heartRateArray = Array::New(isolate, v.HRData.size());
+    Handle<Array> speedArray = Array::New(isolate, v.HRData.size());
+    Handle<Array> cadanceArray = Array::New(isolate, v.HRData.size());
+    Handle<Array> altitudeArray = Array::New(isolate, v.HRData.size());
+    Handle<Array> powerArray = Array::New(isolate, v.HRData.size());
+    Handle<Array> powerBalanceArray = Array::New(isolate, v.HRData.size());
+
+
+
+    for (int i = 0; i < v.HRData.size(); ++i)
+    {
+        heartRateArray->Set(i, Integer::New(isolate, v.HRData[i].HeartRate));
+        speedArray->Set(i, Integer::New(isolate, v.HRData[i].Speed));
+        cadanceArray->Set(i, Integer::New(isolate, v.HRData[i].Cadance));
+        altitudeArray->Set(i, Integer::New(isolate, v.HRData[i].Altitude));
+        powerArray->Set(i, Integer::New(isolate, v.HRData[i].Power));
+        powerBalanceArray->Set(i, Integer::New(isolate, v.HRData[i].PowerBalance));
+    }
 
     // Fill out the values
     array->Set(0, Integer::New(isolate, 9));
@@ -51,10 +73,21 @@ void CreateObject(const FunctionCallbackInfo<Value>& args) {
     obj->Set(String::NewFromUtf8(isolate, "Altitude"), Integer::New(isolate, avg.Altitude));
     obj->Set(String::NewFromUtf8(isolate, "Power"), Integer::New(isolate, avg.Power));
     obj->Set(String::NewFromUtf8(isolate, "PowerBalance"), Integer::New(isolate, avg.PowerBalance));
-    obj->Set(String::NewFromUtf8(isolate, "Count"), Integer::New(isolate, v.size()));
+    obj->Set(String::NewFromUtf8(isolate, "Count"), Integer::New(isolate, v.HRData.size()));
+
+    for( auto x : v.Params) {
+        obj->Set(String::NewFromUtf8(isolate, x.first.c_str()), String::NewFromUtf8(isolate, x.second.c_str()));
+    }
 
 
     obj->Set(String::NewFromUtf8(isolate, "TestArray"), array);
+
+    obj->Set(String::NewFromUtf8(isolate, "HeartRateData"), heartRateArray);
+    obj->Set(String::NewFromUtf8(isolate, "SpeedData"), speedArray);
+    obj->Set(String::NewFromUtf8(isolate, "CadanceData"), cadanceArray);
+    obj->Set(String::NewFromUtf8(isolate, "AltitudeData"), altitudeArray);
+    obj->Set(String::NewFromUtf8(isolate, "PowerData"), powerArray);
+    obj->Set(String::NewFromUtf8(isolate, "PowerBalanceData"), powerBalanceArray);
 
   args.GetReturnValue().Set(obj);
 }

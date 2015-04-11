@@ -5,22 +5,27 @@
 #include <vector>
 #include <fstream>
 #include <iomanip>
+#include <utility>
 
 #include "data_point.h"
+#include "cyclist_data.h"
 
 namespace io
 {
 
+CyclistData readInputFile(const char*);
 
-void readHeader(std::ifstream &myfile);
+
+std::vector<std::pair<std::string, std::string> > readHeader(std::ifstream &myfile);
 
 std::vector<DataPoint> readData(std::ifstream &myfile);
 
-// std::vector<DataPoint> readHeaderData(const char[]);
 
 void advanceUntill(std::ifstream &myfile, const char*);
 
-std::vector<DataPoint> readInputFile(const char*);
+
+
+
 
 
 }

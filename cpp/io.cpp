@@ -2,25 +2,36 @@
 
 using namespace std;
 
-std::vector<DataPoint> io::readData(ifstream &myfile)
-{
-    std::vector<DataPoint> v;
-
-    int a[6];
-    while (!myfile.eof())
-    {
-        myfile >> a[0] >> a[1] >> a[2] >> a[3] >> a[4];
-        a[5] = -1;
-
-        v.push_back(DataPoint(a));
-    }
-
-    return v;
-}
-
-void io::readHeader(std::ifstream &myfile)
+CyclistData io::readInputFile(const char *filename)
 {
     string line;
+    ifstream myfile (filename);
+
+    CyclistData data;
+
+    string version;
+
+    if (myfile.is_open())
+    {
+        io::advanceUntill(myfile, "[Params]");
+
+        data.Params = io::readHeader(myfile);
+
+        io::advanceUntill(myfile, "[HRData]");
+
+        data.HRData = io::readData(myfile);
+
+        myfile.close();
+    }
+
+    return data;
+}
+
+std::vector<std::pair<string, string> > io::readHeader(std::ifstream &myfile)
+{
+    string line;
+    vector<pair<string, string> > blq;
+
     // Read the header
     for (int i = 0; i <= 22; ++i)
     {
@@ -34,34 +45,27 @@ void io::readHeader(std::ifstream &myfile)
 
             string data = line.substr(pos + 1);
 
-            std::cout << name << " --- " << data << "\n";
+            blq.push_back(pair<string, string>(name, data));
+
+            //std::cout << name << " --- " << data << "\n";
         }
     }
+
+    return blq;
 }
 
-std::vector<DataPoint> io::readInputFile(const char *filename)
+std::vector<DataPoint> io::readData(ifstream &myfile)
 {
-    string line;
-    ifstream myfile (filename);
-
-    string version;
-
-    if (myfile.is_open())
-    {
-        io::advanceUntill(myfile, "[Params]");
-
-        io::readHeader(myfile);
-
-        io::advanceUntill(myfile, "[HRData]");
-
-        std::vector<DataPoint> v(io::readData(myfile));
-
-        return v;
-
-        myfile.close();
-    }
-
     std::vector<DataPoint> v;
+
+    int a[6];
+    while (!myfile.eof())
+    {
+        myfile >> a[0] >> a[1] >> a[2] >> a[3] >> a[4];
+        a[5] = -1;
+
+        v.push_back(DataPoint(a));
+    }
 
     return v;
 }

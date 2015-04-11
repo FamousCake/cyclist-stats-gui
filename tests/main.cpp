@@ -4,6 +4,7 @@
 
 #include "../cpp/inc/data_point.h"
 #include "../cpp/inc/io.h"
+#include "../cpp/inc/cyclist_data.h"
 
 using namespace std;
 
@@ -11,11 +12,14 @@ int main(int argc, char const *argv[])
 {
     string filepath = ("./input/full/test-1937.hrm");
 
-    std::vector<DataPoint> v(io::readInputFile(filepath.c_str()));
+    //std::vector<DataPoint> v(io::readInputFile(filepath.c_str()));
 
-    for(auto x : v)
+    CyclistData v = io::readInputFile(filepath.c_str());
+
+    for(auto x : v.Params)
     {
-        std::cout << x.Altitude;
+        std::cout << x.first << " " << x.second << std::endl;
+        ///std::cout << x.Altitude;
     }
 
 

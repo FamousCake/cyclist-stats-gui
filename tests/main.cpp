@@ -9,35 +9,13 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    string line;
-    ifstream myfile ("./input/partial/header.hrm");
 
-    string version;
+    std::vector<DataPoint> v(io::readInputFile("./input/full/test-1937.hrm"));
 
-    if (myfile.is_open())
+    for(auto x : v)
     {
-        while ( getline (myfile,line) )
-        {
-            // cout << line << '\n';
-
-            std::size_t pos = line.find("=");
-
-
-            if ( pos!=std::string::npos ) {
-
-                string name = line.substr(0, pos);
-
-                string data = line.substr(pos + 1);
-
-                std::cout << "(" << name << " --- " << data << ")" << "\n";
-            }
-
-        }
-
-        myfile.close();
+        std::cout << x.Altitude;
     }
-
-
 
 
 

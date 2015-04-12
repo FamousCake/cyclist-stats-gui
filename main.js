@@ -62,6 +62,8 @@ var module = function(filepath, callback) {
 
     document.getElementById('main').innerHTML += text;
 
+    document.getElementById('main').innerHTML += text;
+
     // document.getElementById('main').innerHTML = '';
 
     // var text = '';

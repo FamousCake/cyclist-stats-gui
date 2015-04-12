@@ -13,13 +13,40 @@ var drawChart = function(containerId, hrmData)
 
 
         //Date.UTC()
-        var blq = Date.UTC(tempDate.getFullYear(), tempDate.getUTCMonth(), 1, tempDate.getUTCHours(), tempDate.getUTCMinutes(), tempDate.getUTCSeconds());
+        var blq = Date.UTC(tempDate.getFullYear(), tempDate.getUTCMonth(), tempDate.getDate(), tempDate.getUTCHours(), tempDate.getUTCMinutes(), tempDate.getUTCSeconds());
 
         //blq = Date.UTC(2014, 10,10, 15, 10)
 
 
 
         Speed.push([blq, hrmData.SpeedData[i]]);
+
+        //console.log(tempDate.setSeconds(tempDate.getSeconds() + i * hrmData.Interval));
+
+        //document.getElementById('main').innerHTML += '<div>' + "/" +tempDate.getUTCDay() + " / " + tempDate.getMonth() + " / " + tempDate.getDay() + " / " + tempDate.getHours() + " / " + tempDate.getSeconds() + '</div>';
+        //document.getElementById('main').innerHTML += '<div>' + tempDate.getUTCMinutes() + '</div>';
+        //document.getElementById('main').innerHTML += '<div>' + tempDate + '</div>';
+    };
+
+
+    var Power = new Array();
+
+    for (var i = 0; i < hrmData.PowerData.length ; i++) {
+
+
+        var tempDate = new Date(hrmData.Start);
+
+        tempDate.setSeconds(tempDate.getSeconds() + i * hrmData.Interval);
+
+
+        //Date.UTC()
+        var blq = Date.UTC(tempDate.getFullYear(), tempDate.getUTCMonth(), tempDate.getDate(), tempDate.getUTCHours(), tempDate.getUTCMinutes(), tempDate.getUTCSeconds());
+
+        //blq = Date.UTC(2014, 10,10, 15, 10)
+
+
+
+        Power.push([blq, hrmData.PowerData[i]]);
 
         //console.log(tempDate.setSeconds(tempDate.getSeconds() + i * hrmData.Interval));
 
@@ -73,11 +100,14 @@ var drawChart = function(containerId, hrmData)
             },
 
             series: [{
-                name: 'Power',
+                name: 'Speed',
                 // Define the data points. All series have a dummy year
                 // of 1970/71 in order to be compared on the same x axis. Note
                 // that in JavaScript, months start at 0 for January, 1 for February etc.
                 data: Speed
+            }, {
+                name: 'Power',
+                data: Power
             }]
         });
     });

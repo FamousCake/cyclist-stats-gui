@@ -14,11 +14,6 @@ var module = function(filepath, callback) {
 
 
 
-
-
-
-
-
     // Debug output...
 
     document.getElementById('main').innerHTML = '';
@@ -27,40 +22,8 @@ var module = function(filepath, callback) {
     text += '<div> The software version is : ' + hrmData.Version + '</div>';
     text += '<div> The monitor is : ' + hrmData.Monitor + '</div>';
 
-    text += '<div> The date is : ' + hrmData.Date + '</div>';
+    text += '<div> The date is : ' + hrmData.Start + '</div>';
     text += '<div> The starting time is : ' + hrmData.StartTime + '</div>';
-
-    text += '<div> Array : ';
-
-    _.each(hrmData.SpeedData, function(item){
-        text += item + ' | ';
-
-    });
-
-    text += '</div>';
-
-
-    var dateArray = new Array();
-
-    for (var i = 0; i <= 10; i++) {
-        var temp = new Date(hrmData.Start);
-
-        temp.setSeconds(temp.getSeconds() + i * hrmData.Interval);
-
-        dateArray.push(temp);
-    };
-
-
-    text += '<div> Array : ';
-
-    _.each(dateArray, function(item){
-        text += item + ' | ';
-
-    });
-
-    text += '</div>';
-
-    document.getElementById('main').innerHTML += text;
 
     document.getElementById('main').innerHTML += text;
 

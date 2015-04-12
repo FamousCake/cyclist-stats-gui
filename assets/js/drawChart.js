@@ -2,62 +2,27 @@ var drawChart = function(containerId, hrmData)
 {
     var _ = require('underscore');
 
-    var Speed = new Array();
+    var timestampData = function(startDate, interval, dataArray)
+    {
+        var outputData = new Array();
 
-    for (var i = 0; i < hrmData.SpeedData.length ; i++) {
+        for (var i = 0; i < dataArray.length; i++) {
+            var tempDate = new Date(startDate);
+            tempDate.setSeconds(tempDate.getSeconds() + i * interval);
+            tempDate = Date.UTC(tempDate.getFullYear(), tempDate.getUTCMonth(), tempDate.getDate(), tempDate.getUTCHours(), tempDate.getUTCMinutes(), tempDate.getUTCSeconds());
 
+            outputData.push([tempDate, dataArray[i]]);
+        };
 
-        var tempDate = new Date(hrmData.Start);
-
-        tempDate.setSeconds(tempDate.getSeconds() + i * hrmData.Interval);
-
-
-        //Date.UTC()
-        var blq = Date.UTC(tempDate.getFullYear(), tempDate.getUTCMonth(), tempDate.getDate(), tempDate.getUTCHours(), tempDate.getUTCMinutes(), tempDate.getUTCSeconds());
-
-        //blq = Date.UTC(2014, 10,10, 15, 10)
-
-
-
-        Speed.push([blq, hrmData.SpeedData[i]]);
-
-        //console.log(tempDate.setSeconds(tempDate.getSeconds() + i * hrmData.Interval));
-
-        //document.getElementById('main').innerHTML += '<div>' + "/" +tempDate.getUTCDay() + " / " + tempDate.getMonth() + " / " + tempDate.getDay() + " / " + tempDate.getHours() + " / " + tempDate.getSeconds() + '</div>';
-        //document.getElementById('main').innerHTML += '<div>' + tempDate.getUTCMinutes() + '</div>';
-        //document.getElementById('main').innerHTML += '<div>' + tempDate + '</div>';
-    };
+        return outputData;
+    }
 
 
-    var Power = new Array();
-
-    for (var i = 0; i < hrmData.PowerData.length ; i++) {
-
-
-        var tempDate = new Date(hrmData.Start);
-
-        tempDate.setSeconds(tempDate.getSeconds() + i * hrmData.Interval);
-
-
-        //Date.UTC()
-        var blq = Date.UTC(tempDate.getFullYear(), tempDate.getUTCMonth(), tempDate.getDate(), tempDate.getUTCHours(), tempDate.getUTCMinutes(), tempDate.getUTCSeconds());
-
-        //blq = Date.UTC(2014, 10,10, 15, 10)
-
-
-
-        Power.push([blq, hrmData.PowerData[i]]);
-
-        //console.log(tempDate.setSeconds(tempDate.getSeconds() + i * hrmData.Interval));
-
-        //document.getElementById('main').innerHTML += '<div>' + "/" +tempDate.getUTCDay() + " / " + tempDate.getMonth() + " / " + tempDate.getDay() + " / " + tempDate.getHours() + " / " + tempDate.getSeconds() + '</div>';
-        //document.getElementById('main').innerHTML += '<div>' + tempDate.getUTCMinutes() + '</div>';
-        //document.getElementById('main').innerHTML += '<div>' + tempDate + '</div>';
-    };
-
-
-    //document.getElementById('main').innerHTML += text;
-
+    var stampedHeartRate = timestampData(hrmData.Start, hrmData.Interval, hrmData.HeartRateData);
+    var stampedSpeed = timestampData(hrmData.Start, hrmData.Interval, hrmData.SpeedData);
+    var stampedCadance = timestampData(hrmData.Start, hrmData.Interval, hrmData.CadanceData);
+    var stampedAltitude = timestampData(hrmData.Start, hrmData.Interval, hrmData.AltitudeData);
+    var stampedPower = timestampData(hrmData.Start, hrmData.Interval, hrmData.PowerData);
 
     $(function () {
         $(containerId).highcharts({
@@ -65,24 +30,21 @@ var drawChart = function(containerId, hrmData)
                 type: 'spline'
             },
             title: {
-                text: 'Snow depth at Vikjafjellet, Norway'
+                text: 'A graph of the selected lap'
             },
             subtitle: {
-                text: 'Irregular time data in Highcharts JS'
+                text: ''
             },
             xAxis: {
                 type: 'datetime',
-                // dateTimeLabelFormats: { // don't display the dummy year
-                //     month: '%e. %b',
-                //     year: '%b'
-                // },
+
                 title: {
-                    text: 'Date'
+                    text: 'Time Passed'
                 }
             },
             yAxis: {
                 title: {
-                    text: 'Snow depth (m)'
+                    text: ''
                 },
                 min: 0
             },
@@ -99,16 +61,13 @@ var drawChart = function(containerId, hrmData)
                 }
             },
 
-            series: [{
-                name: 'Speed',
-                // Define the data points. All series have a dummy year
-                // of 1970/71 in order to be compared on the same x axis. Note
-                // that in JavaScript, months start at 0 for January, 1 for February etc.
-                data: Speed
-            }, {
-                name: 'Power',
-                data: Power
-            }]
+            series: [
+                { 'name': 'HeartRate (BMP)', 'data': stampedHeartRate },
+                { 'name': 'Speed (KM\\H)', 'data': stampedSpeed },
+                { 'name': 'Cadance (RPM)', 'data': stampedCadance },
+                { 'name': 'Altitude (m\\ft)', 'data': stampedAltitude },
+                { 'name': 'Power (Wats)', 'data': stampedPower }
+            ]
         });
     });
 }

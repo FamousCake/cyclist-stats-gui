@@ -12,10 +12,6 @@
 
     <body>
 
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-
-
         <p id="main"></p>
 
         <a href="#" onclick="chooseFile('#fileDialog')">Choose File</a>
@@ -24,6 +20,8 @@
         <div id="params">
 
         </div>
+
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 
 
@@ -42,23 +40,22 @@
 
         <script type="text/javascript">
 
-            hrmData = module("./tests/input/full/test-1956-1.hrm", function(hrmData){
 
-                drawChart("#container", hrmData);
 
-            });
+            function chooseFile(name) {
 
-            // function chooseFile(name) {
+                var chooser = document.querySelector(name);
 
-            //     var chooser = document.querySelector(name);
+                chooser.addEventListener("change", function(evt) {
+                    hrmData = module(this.value, function(hrmData){
 
-            //     chooser.addEventListener("change", function(evt) {
-            //         console.log(this.value);
-            //         module(this.value);
-            //     }, false);
+                        drawChart("#container", hrmData);
 
-            //     chooser.click();
-            // }
+                    });
+                }, false);
+
+                chooser.click();
+            }
 
 
         </script>

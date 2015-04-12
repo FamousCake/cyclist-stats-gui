@@ -5,6 +5,22 @@ var module = function(filepath, callback) {
 
     var hrmData = addon(filepath);
 
+    tempDate = hrmData.Date.substring(0, 4) + " " + hrmData.Date.substring(4,6) + " " + hrmData.Date.substring(6,8);
+    tempStartTime = hrmData.StartTime.substring(0,8);
+
+    hrmData.Start = new Date(tempDate + " " + tempStartTime);
+    hrmData.Interval = parseInt(hrmData.Interval, 10);
+
+
+
+
+
+
+
+
+
+    // Debug output...
+
     document.getElementById('main').innerHTML = '';
     var text = '';
 
@@ -13,6 +29,36 @@ var module = function(filepath, callback) {
 
     text += '<div> The date is : ' + hrmData.Date + '</div>';
     text += '<div> The starting time is : ' + hrmData.StartTime + '</div>';
+
+    text += '<div> Array : ';
+
+    _.each(hrmData.SpeedData, function(item){
+        text += item + ' | ';
+
+    });
+
+    text += '</div>';
+
+
+    var dateArray = new Array();
+
+    for (var i = 0; i <= 10; i++) {
+        var temp = new Date(hrmData.Start);
+
+        temp.setSeconds(temp.getSeconds() + i * hrmData.Interval);
+
+        dateArray.push(temp);
+    };
+
+
+    text += '<div> Array : ';
+
+    _.each(dateArray, function(item){
+        text += item + ' | ';
+
+    });
+
+    text += '</div>';
 
     document.getElementById('main').innerHTML += text;
 
@@ -82,6 +128,8 @@ var module = function(filepath, callback) {
     // });
 
     // text += '</div>';
+
+
     // text += '<div> Array : ';
 
     // _.each(hrmData.PowerBalanceData, function(item){

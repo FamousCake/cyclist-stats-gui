@@ -1,5 +1,12 @@
 var drawChart = function(containerId, hrmData)
 {
+    var _ = require('underscore');
+
+    _.each(hrmData.PowerData, function(item){
+        console.log(item, " ");
+    });
+
+
     $(function () {
         $(containerId).highcharts({
             chart: {
@@ -41,42 +48,28 @@ var drawChart = function(containerId, hrmData)
             },
 
             series: [{
-                name: 'Winter 2007-2008',
+                name: 'Power',
                 // Define the data points. All series have a dummy year
                 // of 1970/71 in order to be compared on the same x axis. Note
                 // that in JavaScript, months start at 0 for January, 1 for February etc.
                 data: [
-                    [Date.UTC(1970,  9, 27), 0   ],
-                    [Date.UTC(1970, 10, 10), 0.6 ],
-                    [Date.UTC(1970, 10, 18), 0.7 ],
-                    [Date.UTC(1970, 11,  2), 0.8 ],
-                    [Date.UTC(1970, 11,  9), 0.6 ],
-                    [Date.UTC(1970, 11, 16), 0.6 ],
-                    [Date.UTC(1970, 11, 28), 0.67],
-                    [Date.UTC(1971,  0,  1), 0.81],
-                    [Date.UTC(1971,  0,  8), 0.78],
-                    [Date.UTC(1971,  0, 12), 0.98],
-                    [Date.UTC(1971,  0, 27), 1.84],
-                    [Date.UTC(1971,  1, 10), 1.80],
-                    [Date.UTC(1971,  1, 18), 1.80],
-                    [Date.UTC(1971,  1, 24), 1.92],
-                    [Date.UTC(1971,  2,  4), 2.49],
-                    [Date.UTC(1971,  2, 11), 2.79],
-                    [Date.UTC(1971,  2, 15), 2.73],
-                    [Date.UTC(1971,  2, 25), 2.61],
-                    [Date.UTC(1971,  3,  2), 2.76],
-                    [Date.UTC(1971,  3,  6), 2.82],
-                    [Date.UTC(1971,  3, 13), 2.8 ],
-                    [Date.UTC(1971,  4,  3), 2.1 ],
-                    [Date.UTC(1971,  4, 26), 1.1 ],
-                    [Date.UTC(1971,  5,  9), 0.25],
-                    [Date.UTC(1971,  5, 12), 0   ]
+                    [Date.UTC(1970,  9, 27), hrmData.PowerData[0]],
+                    [Date.UTC(1970, 10, 10), hrmData.PowerData[1]],
+                    [Date.UTC(1970, 10, 18), hrmData.PowerData[2]],
+                    [Date.UTC(1970, 11,  2), hrmData.PowerData[3]],
+                    [Date.UTC(1970, 11,  9), hrmData.PowerData[4]],
+                    [Date.UTC(1970, 11, 16), hrmData.PowerData[5]],
+                    [Date.UTC(1970, 11, 28), hrmData.PowerData[6]],
+                    [Date.UTC(1971,  0,  1), hrmData.PowerData[7]],
+                    [Date.UTC(1971,  0,  8), hrmData.PowerData[8]],
+                    [Date.UTC(1971,  0, 12), hrmData.PowerData[9]],
+                    [Date.UTC(1971,  0, 27), hrmData.PowerData[10]]
                 ]
             }, {
                 name: 'Winter 2008-2009',
                 data: [
                     [Date.UTC(1970,  9, 18), 0   ],
-                    [Date.UTC(1970,  9, 26), 20 ],
+                    [Date.UTC(1970,  9, 26), 0.2 ],
                     [Date.UTC(1970, 11,  1), 0.47],
                     [Date.UTC(1970, 11, 11), 0.55],
                     [Date.UTC(1970, 11, 25), 1.38],

@@ -1,33 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hello World!</title>
-    <script type="text/javascript" src="main.js"></script>
-  </head>
-  <body>
-    <h1 id="main"></h1>
+    <head>
+        <title>Hello World!</title>
 
-    <a href="#" onclick="chooseFile('#fileDialog')">Choose File</a>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Highcharts Example</title>
 
-    <input style="display:none;" id="fileDialog" type="file" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
+    </head>
 
+    <body>
 
-    <script type="text/javascript">
-
-          function chooseFile(name) {
-            var chooser = document.querySelector(name);
-            chooser.addEventListener("change", function(evt) {
-              console.log(this.value);
-              module(this.value);
-            }, false);
-
-            chooser.click();
-          }
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 
 
-    </script>
+        <p id="main"></p>
+
+        <a href="#" onclick="chooseFile('#fileDialog')">Choose File</a>
+        <input style="display:none;" id="fileDialog" type="file" />
+
+        <div id="params">
+
+        </div>
+
+
+
+
+
+
+
+
+        <script type="text/javascript" src="./main.js"></script>
+        <script type="text/javascript" src="./assets/js/drawChart.js"></script>
+
+        <script src="./assets/js/highcharts/js/highcharts.js"></script>
+        <script src="./assets/js/highcharts/js/modules/exporting.js"></script>
+
+
+        <script type="text/javascript">
+
+            hrmData = module("./tests/input/full/test-1937.hrm", function(hrmData){
+
+                drawChart("#container", hrmData);
+
+            });
+
+            // function chooseFile(name) {
+
+            //     var chooser = document.querySelector(name);
+
+            //     chooser.addEventListener("change", function(evt) {
+            //         console.log(this.value);
+            //         module(this.value);
+            //     }, false);
+
+            //     chooser.click();
+            // }
+
+
+        </script>
+
 
   </body>
 </html>
